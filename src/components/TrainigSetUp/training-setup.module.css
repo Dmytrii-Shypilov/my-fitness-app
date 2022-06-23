@@ -1,0 +1,31 @@
+.container {
+   display: flex;
+}
+
+.section {
+    width: 400px;
+}
+
+.title {
+    margin-bottom: 30px;
+}
+
+.label {
+    position: relative;
+    display: block;
+    margin-bottom: 22px;
+}
+
+.info {
+    position: absolute;
+    left: 0;
+    top: -15px;
+    display: block;
+  
+    font-size: 12px;
+    font-weight: 700;
+  }
+  
+  .button {
+    margin-right: 10px;
+  }

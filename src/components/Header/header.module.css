@@ -1,0 +1,52 @@
+.header {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 70px;
+  border-bottom: 1px solid grey;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+
+  width: 1200px;
+  height: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.logo {
+  margin-right: 35px;
+}
+
+.active {
+  color: blue;
+}
+
+.list {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+}
+
+.listItem {
+  margin-right: 20px;
+}
+
+.link {
+  display: block;
+  text-decoration: none;
+  color: #545454;
+  font-weight: 700;
+}
+
+.image {
+  height: 60px;
+  width: auto;
+}
+
+.active {
+  color: red;
+}
+
