@@ -1,4 +1,4 @@
-import s from './blog.module.css'
+import s from './blog.module.scss'
 
 const BlogPage = () => {
     return (

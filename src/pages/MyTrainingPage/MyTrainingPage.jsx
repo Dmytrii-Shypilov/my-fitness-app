@@ -1,4 +1,4 @@
-import s from './my-training.module.css';
+import s from './my-training.module.scss';
 
 import { Outlet, NavLink } from 'react-router-dom';
 
@@ -17,12 +17,12 @@ const MyTrainingPage = () => {
               Set your training
             </NavLink>
           </li>
-          {/* <li className={s.listItem}>
+          <li className={s.listItem}>
             <NavLink className={s.link} to="/my-training/training-setup">
-              Set your training
+              Statistics
             </NavLink>
           </li>
-          <li className={s.listItem}>
+          {/* <li className={s.listItem}>
             <NavLink className={s.link} to="/my-training/training-setup">
               Set your training
             </NavLink>
@@ -36,7 +36,7 @@ const MyTrainingPage = () => {
       </div>
       {/* <h2 className={s.title}>Here you can set up and track your training routine</h2> */}
 
-      <Outlet data={data}/>
+      <Outlet/>
     </section>
   );
 };

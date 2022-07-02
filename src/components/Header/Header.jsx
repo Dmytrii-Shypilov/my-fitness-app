@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import s from './header.module.css';
+import s from './header.module.scss';
 import logo from './logo.png';
 
 const getClassName = ({isActive}) => {

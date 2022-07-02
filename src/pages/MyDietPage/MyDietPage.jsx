@@ -1,4 +1,4 @@
-import s from './my-diet.module.css'
+import s from './my-diet.module.scss'
 
 const MyDietPage = () => {
   return (

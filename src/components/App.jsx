@@ -2,6 +2,7 @@ import Header from './Header';
 import { Route, Routes } from 'react-router-dom';
 import { Suspense } from 'react';
 
+import ScheduleContext from 'context/scheduleContext';
 import MyTrainingPage from 'pages/MyTrainingPage';
 import MyDietPage from 'pages/MyDietPage';
 import TrainigSetUp from './TrainigSetUp';
@@ -13,15 +14,17 @@ export const App = () => {
     <>
       <Header />
       <Suspense>
+        <ScheduleContext>
         <Routes>
-          <Route path="/" element={<HomePage/>}></Route>
-          <Route path="/my-training" element={<MyTrainingPage />}>
-            <Route path="training-setup" element={<TrainigSetUp />}></Route>
-          </Route>
+          <Route path="/" element={<HomePage />}></Route>
+            <Route path="/my-training" element={<MyTrainingPage />}>
+              <Route path="training-setup" element={<TrainigSetUp />}></Route>
+            </Route>
           <Route path="/my-diet" element={<MyDietPage />}></Route>
-          <Route path="/blog" element={<BlogPage/>}></Route>
-          <Route path="*" element={<HomePage/>} replace></Route>
+          <Route path="/blog" element={<BlogPage />}></Route>
+          <Route path="*" element={<HomePage replace />}></Route>
         </Routes>
+        </ScheduleContext>
       </Suspense>
     </>
   );

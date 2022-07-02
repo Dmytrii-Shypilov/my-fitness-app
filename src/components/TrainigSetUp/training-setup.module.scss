@@ -1,0 +1,72 @@
+.container {
+   display: flex;
+}
+
+.section {
+    width: 400px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+.form {
+    width: 175px;
+    margin-right: auto;
+    margin-left: auto;
+} 
+
+.title {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.label {
+    position: relative;
+    display: block;
+    margin-bottom: 22px;
+}
+
+.info {
+    position: absolute;
+    left: 0;
+    top: -15px;
+    display: block;
+  
+    font-size: 12px;
+    font-weight: 700;
+  }
+  
+  .button {
+    margin-right: 10px;
+  }
+
+  .weekList {
+    
+    width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .weekDay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+
+    border: 2px solid red;
+    border-radius: 15px;
+    font-weight: 700;
+    color: red;
+    cursor: pointer;
+   
+  }
+
+  .formTitle {
+    text-align: center;
+    margin-bottom: 30px;
+  }
