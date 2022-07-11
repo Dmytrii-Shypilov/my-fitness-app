@@ -15,6 +15,7 @@ const days = [
   'Saturday',
   'Sunday',
 ];
+
 const initialState = {
   name: '',
   resistance: null,
@@ -53,7 +54,6 @@ const TrainigSetUp = () => {
       weekIsVisible: false,
       choosenDay: day,
     });
-    
   };
 
   const finishDaySetUp = () => {
@@ -82,16 +82,6 @@ const TrainigSetUp = () => {
         {formIsVisible && (
           <form onSubmit={onSubmit} className={s.form}>
             <h3 className={s.formTitle}>{choosenDay}</h3>
-            {/* <label className={s.label} htmlFor="">
-              <span className={s.info}>Training day</span>
-              <select onChange={onChange} id="day">
-                <option value="day">choose day</option>
-                {days.map(day => (
-                  <option value={day}>{day}</option>
-                ))}
-              </select>
-            </label> */}
-
             <div>
               <label className={s.label} htmlFor="">
                 <span className={s.info}>Exercise</span>

@@ -12,6 +12,11 @@ const MyTrainingPage = () => {
     <section className={s.section}>
       <div className={s.trainingNavBar}>
         <ul className={s.list}>
+        <li className={s.listItem}>
+            <NavLink className={s.link} to="/my-training">
+              Your data
+            </NavLink>
+          </li>
           <li className={s.listItem}>
             <NavLink className={s.link} to="/my-training/training-setup">
               Set your training
