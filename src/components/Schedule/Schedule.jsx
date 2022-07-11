@@ -23,6 +23,7 @@ const Schedule = () => {
           if (day.exercises.length > 0) {
             return <Day date={day}></Day>;
           }
+          return null
         })}
       </div>
       <div className={s.btnContainer}>

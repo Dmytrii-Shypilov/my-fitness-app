@@ -25,7 +25,7 @@ const initialState = {
 };
 
 const TrainigSetUp = () => {
-  const { schedule, addExercise, removeExercise } = useContext(scheduleContext);
+  const { addExercise } = useContext(scheduleContext);
   const [exerciseInput, SetExerciseInput] = useState(initialState);
   const [form, setForm] = useState({
     formIsVisible: false,
