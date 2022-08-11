@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+}
+
+.form {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 500px;
+  height: 700px;
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+.title {
+  text-align: center;
+}
+
+.label {
+  display: block;
+  text-align: center;
+}
+
+.searchBar {
+  width: 250px;
+  height: 35px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 5px;
+  &::placeholder {
+    text-align: center;
+  }
+  &:focus::placeholder {
+    opacity: 0;
+  }
+}
+
+.menuList {
+  position: absolute;
+  z-index: 1;
+  width: 250px;
+  list-style: none;
+  margin-top: 5px;
+  padding-left: 0;
+  border: 1px solid grey;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.menuItem {
+  height: 30px;
+  padding: 5px;
+  &:not(:last-child) {
+    border-bottom: 1px solid grey;
+  }
+}
+
+.message {
+  color: red;
+  text-align: center;
+}
+
+.commonBox {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.resistanceBox {
+  position: relative;
+}
+
+.inputWrap {
+  display: flex;
+}
+
+.resistanceInput {
+  width: 100px;
+  height: 30px;
+  border: 1px solid grey;
+  padding-left: 20px;
+  padding-right: 20px;
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
+  &:focus::placeholder {
+    opacity: 0;
+  }
+  text-align: center;
+}
+
+.decrease {
+  display: block;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid grey;
+  border-radius: 5px 0px 0px 5px;
+  border-right: none;
+  cursor: pointer;
+  color: grey;
+  user-select: none;
+}
+
+.increase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 30px;
+  border: 1px solid grey;
+  border-radius: 0px 5px 5px 0px;
+  border-left: none;
+  cursor: pointer;
+  color: grey;
+  user-select: none;
+}

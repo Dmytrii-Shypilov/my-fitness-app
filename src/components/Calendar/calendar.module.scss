@@ -1,0 +1,55 @@
+.calendarBody {
+    text-align: center;
+    
+}
+
+.headColumn {
+    color: red;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // border: 1px solid black;
+    width: 150px;
+    margin: 5px;
+    height: 50px;
+}
+
+.headRow {
+    height: 50px;
+    display: flex;
+}
+
+.row {
+    // border: 1px solid black;
+    height: 150px;
+    display: flex;
+}
+
+.column {
+    position: relative;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    width: 150px;
+    margin: 5px;
+    
+}
+
+.day {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    color: white;
+    font-weight: 700;
+    line-height: 1;
+    background-color: red;
+    
+}
