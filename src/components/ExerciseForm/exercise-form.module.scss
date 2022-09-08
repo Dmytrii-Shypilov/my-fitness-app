@@ -6,8 +6,8 @@
   position: relative;
   display: flex;
   justify-content: center;
-  width: 500px;
-  height: 700px;
+  width: 450px;
+  height: 450px;
   border: 1px solid grey;
   border-radius: 5px;
 }
@@ -18,14 +18,16 @@
 .label {
   display: block;
   text-align: center;
+  margin-bottom: 5px;
 }
 
-.searchBar {
+.inputField {
   width: 250px;
   height: 35px;
   border: 1px solid grey;
   border-radius: 5px;
   padding: 5px;
+  
   &::placeholder {
     text-align: center;
   }
@@ -53,6 +55,9 @@
   &:not(:last-child) {
     border-bottom: 1px solid grey;
   }
+  &:hover {
+    background-color: aqua;
+  }
 }
 
 .message {
@@ -64,6 +69,9 @@
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  &:last-child {
+    margin-top: 30px;
+  }
 }
 
 .resistanceBox {
@@ -78,8 +86,8 @@
   width: 100px;
   height: 30px;
   border: 1px solid grey;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
   &::-webkit-inner-spin-button {
     display: none;
   }
@@ -115,4 +123,11 @@
   cursor: pointer;
   color: grey;
   user-select: none;
+}
+
+.btn {
+  display: block;
+  height: 30px;
+  border: 1px solid grey;
+  border-radius: 5px;
 }
