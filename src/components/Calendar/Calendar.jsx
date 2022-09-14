@@ -46,7 +46,6 @@ const Calendar = ({toggleModal}) => {
     const month = today.getMonth();
     const year = today.getFullYear();
     const days = new Date(year, month + 1, 0).getDate();
-    console.log(trainingSession)
 
     setCalendar({
       month,
@@ -137,9 +136,9 @@ const Calendar = ({toggleModal}) => {
     }
   };
 
-  const addContent = e => {
-    e.target.insertAdjacentHTML('afterbegin', `<p>${e.target.id}</p>`);
-  };
+  // const addContent = e => {
+  //   e.target.insertAdjacentHTML('afterbegin', `<p>${e.target.id}</p>`);
+  // };
 
   return (
     <div className={s.calendarBody}>
