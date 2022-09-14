@@ -1,5 +1,7 @@
 import s from './calendar.module.scss';
 import { useEffect, useState } from 'react';
+import { getSchedule } from 'redux/schedule/schedule-selector';
+import { useSelector, shallowEqual} from 'react-redux';
 
 
 
@@ -37,11 +39,14 @@ const Calendar = ({toggleModal}) => {
 
   const { month, days, year } = calendar;
 
+  const trainingSession = useSelector(getSchedule, shallowEqual)
+
   useEffect(() => {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
     const days = new Date(year, month + 1, 0).getDate();
+    console.log(trainingSession)
 
     setCalendar({
       month,
@@ -70,6 +75,7 @@ const Calendar = ({toggleModal}) => {
           today.toLocaleDateString() === `${month + 1}/${i - padding}/${year}`
             ? `${s.currentDayIcon}`
             : `${s.dayIcon}`;
+            const training = trainingSession.find(el => el.date === `${i - padding}/${month + 1}/${year}`)
         markup.push(
           <div
             onClick={toggleModal}
@@ -77,6 +83,9 @@ const Calendar = ({toggleModal}) => {
             id={`${i - padding}/${month + 1}/${year}`}
           >
             <span className={iconClassName}>{i - padding}</span>
+            {training && training.trainings.map(el=> {
+              return <div className={s.training}>{el.name}</div>
+            })}
           </div>
         );
       }
@@ -113,7 +122,7 @@ const Calendar = ({toggleModal}) => {
       return {
         ...prevState,
         month: month - 1,
-        days: new Date(year, month + 1, 0).getDate(),
+        days: new Date(year, month, 0).getDate(),
       };
     });
     if (month === 0) {

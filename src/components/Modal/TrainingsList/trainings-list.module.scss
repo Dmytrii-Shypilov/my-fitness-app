@@ -1,0 +1,48 @@
+.listBlock {
+    width: 550px;
+    height: 350px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin: 0 auto;
+}
+
+.list {
+    list-style: none;
+    padding: 0 20px;
+
+}
+
+.listItem {
+    border-bottom: 1px dashed grey;
+    padding: 5px 0;
+}
+
+.training {
+    display: inline-flex;
+    width: 380px;
+    font-weight: 700;
+    margin-right: 10px;
+
+}
+
+.time {
+margin-right: 10px;
+}
+
+.addBtn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 25px;
+    border-radius: 5px;
+    background-color: red;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

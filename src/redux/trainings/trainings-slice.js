@@ -8,11 +8,11 @@ const trainingsSlice = createSlice({
   name: 'trainings',
   initialState,
   reducers: {
-    createTrainingDay: (store, { payload }) => {
+    createTrainingSession: (store, { payload }) => {
        store.trainings.push(payload)
     },
   },
 });
 
-export const { createTrainingDay } = trainingsSlice.actions;
+export const { createTrainingSession } = trainingsSlice.actions;
 export default trainingsSlice.reducer;

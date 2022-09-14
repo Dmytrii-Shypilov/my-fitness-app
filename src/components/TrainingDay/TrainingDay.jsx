@@ -1,7 +1,7 @@
 import s from './training-day.module.scss';
 import { useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { createTrainingDay } from 'redux/trainings/trainings-slice';
+import { createTrainingSession } from 'redux/trainings/trainings-slice';
 
 
 const TrainingDay = ({ trainingDay, resetTraining }) => {
@@ -38,7 +38,7 @@ const createTraining = () => {
     notes: note.content,
   }
 
-  dispatch(createTrainingDay(training))
+  dispatch(createTrainingSession(training))
   resetTraining()
   setFlags({
     isNotesOpen: false,

@@ -23,6 +23,7 @@ const [modal, setModal] = useState({
   isModalOpen: false
 })
 const [dayData, setDayData] = useState({
+  fullDate: '',
   day: '',
   month: '',
   year: '',
@@ -32,6 +33,7 @@ const getDayData = (date) => {
   const [day, monthFig, year] = date.split('/')
   const month = months[monthFig - 1]
   setDayData({
+    fullDate: date,
     day,
     month,
     year
