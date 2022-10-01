@@ -1,0 +1,25 @@
+.trainingBlock {
+    width: 550px;
+    height: 350px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin: 0 auto;
+    padding: 15px 0;
+}
+
+.list {
+    list-style: none;
+    margin-bottom: 25px;
+
+}
+
+.trainingName {
+    font-weight: 700;
+    text-align: center;
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

@@ -3,9 +3,10 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTraining } from 'redux/schedule/schedule-slice';
 
+
 const TrainingList = ({ goBack, openDescription, trainings, dayData }) => {
   const[time, setTime] = useState('');
-  const { day, month, year, fullDate } = dayData;
+  const { fullDate } = dayData;
   const dispatch = useDispatch()
   
   const onChange = (e) => {
@@ -29,10 +30,10 @@ const TrainingList = ({ goBack, openDescription, trainings, dayData }) => {
           {trainings.map(el => {
             return (
               <li className={s.listItem}>
-                <span className={s.training} onClick={openDescription}>{el.name}</span>
+                <span id={el.name} className={s.training} onClick={openDescription}>{el.name}</span>
                 <select className={s.time} onChange={onChange} name="time" id="time" >
-                    <option>15:30</option>
-                    <option value="">16:00</option>
+                    <option value="15:30">15:30</option>
+                    <option value="16:30">16:00</option>
                 </select>
                 <span onClick={addTrainingItem} id={el.name} className={s.addBtn}>
                   Add
