@@ -2,6 +2,7 @@ import s from './calendar.module.scss';
 import { useEffect, useState } from 'react';
 import { getSchedule } from 'redux/schedule/schedule-selector';
 import { useSelector, shallowEqual} from 'react-redux';
+import Day from 'components/Schedule/Day';
 
 
 
@@ -67,11 +68,12 @@ const Calendar = ({toggleModal}) => {
         markup.push(<div className={s.padDay}></div>);
       } else if (i >= padding && i < days + padding + 1) {
         const DayClassName =
-          today.toLocaleDateString() === `${month + 1}/${i - padding}/${year}`
+          today.toLocaleDateString() === `${i - padding}.${"0" + (month + 1)}.${year}`
             ? `${s.currentDay}`
             : `${s.day}`;
+            
         const iconClassName =
-          today.toLocaleDateString() === `${month + 1}/${i - padding}/${year}`
+        today.toLocaleDateString() === `${i - padding}.${"0" + (month + 1)}.${year}`
             ? `${s.currentDayIcon}`
             : `${s.dayIcon}`;
             const training = trainingSession.find(el => el.date === `${i - padding}/${month + 1}/${year}`)

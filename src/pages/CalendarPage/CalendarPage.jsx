@@ -41,7 +41,7 @@ const getDayData = (date) => {
 }
 
 const toggleModal = (e) => {
-  getDayData(e.target.id)
+  getDayData(e.currentTarget.id)
   setModal({
     isModalOpen: !modal.isModalOpen,
   })
