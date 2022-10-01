@@ -1,9 +1,5 @@
 import s from './my-training.module.scss';
-
 import { Outlet, NavLink } from 'react-router-dom';
-
-// import TrainigSetUp from 'components/TrainigSetUp';
-// import Schedule from 'components/Schedule';
 
 const MyTrainingPage = () => {
   return (
@@ -13,12 +9,12 @@ const MyTrainingPage = () => {
         <ul className={s.list}>
           <li className={s.listItem}>
             <NavLink className={s.link} to="/my-training">
-              Your data
+              Trainings
             </NavLink>
           </li>
           <li className={s.listItem}>
             <NavLink className={s.link} to="/my-training/training-setup">
-              Set your training
+              Create training
             </NavLink>
           </li>
           <li className={s.listItem}>
@@ -28,8 +24,6 @@ const MyTrainingPage = () => {
           </li>
         </ul>
       </div>
-      {/* <h2 className={s.title}>Here you can set up and track your training routine</h2> */}
-
       <Outlet />
       </div>
       
