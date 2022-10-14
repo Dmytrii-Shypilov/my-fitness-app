@@ -128,9 +128,21 @@
   user-select: none;
 }
 
+// .btn {
+//   display: block;
+//   height: 30px;
+//   border: 1px solid grey;
+//   border-radius: 5px;
+// }
+
 .btn {
-  display: block;
-  height: 30px;
-  border: 1px solid grey;
+  padding: 7px 10px;
+  cursor: pointer;
+  border: transparent;
   border-radius: 5px;
+  background-color: red;
+  color: #fff;
+  &:hover {
+    background-color: grey;
+  }
 }

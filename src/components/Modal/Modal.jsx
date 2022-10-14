@@ -9,7 +9,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 
 const modalRoot = document.querySelector('#modalRoot');
 
-const Modal = ({ toggleModal, dayData }) => {
+const Modal = ({ toggleModal, dayData, setAlert }) => {
   const [page, setPage] = useState({
     currentPage: 'Schedule',
     prevPage: '',
@@ -28,12 +28,6 @@ const Modal = ({ toggleModal, dayData }) => {
       return { currentPage: 'Trainings', prevPage: prevState.currentPage };
     });
   };
-
-  // const openSchedule = () => {
-  //   setPage(prevState => {
-  //     return { currentPage: 'Schedule', prevPage: prevState.currentPage };
-  //   });
-  // };
 
   const openDescription = e => {
     const training = trainings.find(el => el.name === e.target.id);
@@ -86,7 +80,7 @@ const Modal = ({ toggleModal, dayData }) => {
               </ul>
             </div>
             <div className={s.btnContainer}>
-              <button onClick={openTrainings} type="button">
+              <button className={s.btn} onClick={openTrainings} type="button">
                 Add training
               </button>
             </div>
@@ -99,6 +93,8 @@ const Modal = ({ toggleModal, dayData }) => {
             openDescription={openDescription}
             dayData={dayData}
             clickedTraining={clickedTraining}
+            setAlert={setAlert}
+            schedule={schedule}
           />
         )}
         {currentPage === 'Description' && (

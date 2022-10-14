@@ -1,0 +1,21 @@
+.footer {
+    width: 100vw;
+    height: 70px;
+    border-top: 1px solid grey;
+    background-color: gray;
+}
+
+.container {
+    display: flex;
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.text {
+    font-size: 25px;
+    font-weight: 700;
+    color: #fff;
+}

@@ -4,6 +4,7 @@
     border: 1px solid grey;
     border-radius: 5px;
     margin: 0 auto;
+    padding: 20px;
 }
 
 .list {
@@ -13,15 +14,22 @@
 }
 
 .listItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px dashed grey;
     padding: 5px 0;
+    margin-bottom: 5px;
 }
 
 .training {
     display: inline-flex;
-    width: 380px;
+    align-items: center;
     font-weight: 700;
-    margin-right: 10px;
+    &:hover {
+        color: grey;
+        cursor: pointer;
+    }
 
 }
 
@@ -39,6 +47,9 @@ margin-right: 10px;
     background-color: red;
     color: #fff;
     cursor: pointer;
+    &:hover {
+        background-color: grey;
+    }
 }
 
 .btnContainer {
@@ -46,3 +57,16 @@ margin-right: 10px;
     justify-content: center;
     margin-top: 20px;
 }
+
+
+.btn {
+    padding: 7px 10px;
+    cursor: pointer;
+    border: transparent;
+    border-radius: 5px;
+    background-color: red;
+    color: #fff;
+    &:hover {
+      background-color: grey;
+    }
+  }

@@ -2,7 +2,7 @@ import s from './training-day.module.scss';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { createTrainingSession } from 'redux/trainings/trainings-slice';
-
+import image from '../../images/dumbell.png'
 const TrainingDay = ({ trainingDay, resetTraining }) => {
   const { name, exercises } = trainingDay;
   const [flags, setFlags] = useState({
@@ -33,6 +33,7 @@ const toggleNotes = () => {
 }
 
 const createTraining = () => {
+  
   const training = {
     ...trainingDay,
     notes: note.content,
@@ -56,6 +57,7 @@ const createTraining = () => {
       {!name && (
         <div className={s.messageContainer}>
           <p className={s.message}>There is no training data added yet</p>
+          <img className={s.image} src={image} alt="" width="298" height="174" />
         </div>
       )}
       {name && (

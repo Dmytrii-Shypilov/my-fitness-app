@@ -3,12 +3,20 @@ import { useState } from 'react';
 
 import ExerciseForm from 'components/ExerciseForm';
 import TrainingDay from 'components/TrainingDay';
+import AlertModal from 'components/AlertModal';
 
 const SetTrainingPage = () => {
   const [day, setDay] = useState({
     name: '',
     exercises: [],
   });
+
+  const [alert, setAlert] = useState({
+    isAlert: false,
+    type: '',
+    message: ''
+  })
+
 
   const [formReset, setFormReset] = useState({ resetForm: false });
 
@@ -46,11 +54,13 @@ const SetTrainingPage = () => {
           getName={setDayName}
           formReset={formReset}
           setFormReset={setFormReset}
+          setAlert={setAlert}
         />
       </div>
       <div>
         <TrainingDay trainingDay={day} resetTraining={resetTraining} />
       </div>
+     {alert.isAlert && <AlertModal alert={alert} setAlert={setAlert}/>}
     </div>
   );
 };

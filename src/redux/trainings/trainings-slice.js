@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { fetchTrainings } from './trainings-operations';
 
 const initialState = {
     trainings: []
@@ -12,6 +13,12 @@ const trainingsSlice = createSlice({
        store.trainings.push(payload)
     },
   },
+  extraReducers: {
+    [fetchTrainings.fulfilled]: (store, {payload}) => {
+      store.trainings = [...payload]
+    }
+
+  }
 });
 
 export const { createTrainingSession } = trainingsSlice.actions;

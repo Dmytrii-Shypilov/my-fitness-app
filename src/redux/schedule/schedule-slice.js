@@ -16,6 +16,13 @@ const scheduleSlice = createSlice({
       };
       if (day) {
         day.trainings.push(newTraining);
+        // sort out in order by time (day.trainings)
+        day.trainings.sort((a, b) =>
+          Number(a.time.split(':').join('')) >
+          Number(b.time.split(':').join(''))
+            ? 1
+            : -1
+        );
       } else if (!day) {
         const trainingDay = {
           date: payload.date,

@@ -1,14 +1,18 @@
 import s from './exercise-form.module.scss';
-import { exerciseData } from 'database/exercises';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { getTrainings } from 'redux/trainings/trainings-selector';
+import { getExercises } from 'redux/exercises/exercises-selector';
+import { useSelector } from 'react-redux';
 
-const ExerciseForm = ({ addExercise, getName, formReset, setFormReset }) => {
+const ExerciseForm = ({ addExercise, getName, formReset, setFormReset, setAlert }) => {
+  const trainings = useSelector(getTrainings)
+  const exercises = useSelector(getExercises)
   const { resetForm } = formReset;
 
   const [list, setList] = useState({
-    fullList: exerciseData,
-    filteredList: exerciseData,
+    fullList: [],
+    filteredList: [],
   });
 
   const [flags, setFlags] = useState({
@@ -16,7 +20,7 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset }) => {
     isNameChoosen: false,
   });
 
-  const [dayName, setDayName] = useState({ name: '' });
+  const [dayName, setDayName] = useState('');
 
   const [form, setForm] = useState({
     exercise: '',
@@ -29,7 +33,7 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset }) => {
   const { exercise, resistance, sets, repetitions, restInterval } = form;
   const { fullList, filteredList } = list;
   const { isMenuOpen, isNameChoosen } = flags;
-  const { name } = dayName;
+
 
   const toResetForm = () => {
     setForm({
@@ -55,13 +59,15 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset }) => {
         resetForm: false,
       })
     }
-  }, [resetForm]);
+    setList({
+      fullList: exercises,
+      filteredList: exercises,
+    })
+  }, [resetForm, exercises]);
 
   const onInput = e => {
     if (e.target.name === 'day-name') {
-      setDayName({
-        name: e.target.value,
-      });
+      setDayName(e.target.value);
       return;
     }
 
@@ -95,6 +101,7 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset }) => {
       };
     });
   };
+
   const toggleMenu = e => {
     setFlags(prevState => {
       return {
@@ -139,6 +146,15 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset }) => {
 
   const submitExercise = e => {
     e.preventDefault();
+
+    if (!exercise || !resistance || !sets || !repetitions || !restInterval) {
+      setAlert({
+        isAlert: true,
+        type: 'alert',
+        message: 'All fields must be filled'
+      })
+      return
+    }
     addExercise({
       exercise,
       resistance,
@@ -146,10 +162,35 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset }) => {
       repetitions,
       restInterval,
     });
+    setForm({
+      exercise: '',
+      resistance: '',
+      sets: '',
+      repetitions: '',
+      restInterval: '',
+    });
+  
   };
 
   const setName = () => {
-    getName(name);
+    if (!dayName) {
+      setAlert({
+        isAlert: true,
+        type: 'alert',
+        message: 'You should name your training in order to continue'
+      })
+      return
+    }
+    const doesNameExist = Boolean(trainings.find(el=> el.name === dayName))
+    if (doesNameExist) {
+      setAlert({
+        isAlert: true,
+        type: 'alert',
+        message: 'A training with such name already exists'
+      })
+      return
+    }
+    getName(dayName);
     setFlags(prevState => {
       return {
         ...prevState,
@@ -235,7 +276,7 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset }) => {
                     className={s.resistanceInput}
                     value={resistance}
                     type="number"
-                    placeholder="Enter kg"
+                    placeholder="kg"
                   />
                   <span
                     title="increase"
@@ -334,7 +375,7 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset }) => {
                     className={s.resistanceInput}
                     value={restInterval}
                     type="number"
-                    placeholder="Enter seconds"
+                    placeholder="seconds"
                   />
                   <span
                     id="restInterval"

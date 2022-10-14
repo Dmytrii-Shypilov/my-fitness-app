@@ -1,4 +1,4 @@
-@import-normalize; /* bring in normalize.css styles */
+@import 'modern-normalize/modern-normalize.css';
 
 body {
   margin: 0;
@@ -25,4 +25,8 @@ p {
 ul {
   margin: 0;
   padding: 0;
+}
+
+html {
+  --mainFont: "Roboto Serif";
 }

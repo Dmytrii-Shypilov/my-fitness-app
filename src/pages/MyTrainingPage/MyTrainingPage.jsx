@@ -1,32 +1,29 @@
 import s from './my-training.module.scss';
-import { Outlet, NavLink } from 'react-router-dom';
+import SetTrainingPage from './SetTrainingPage';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { fetchExercises } from 'redux/exercises/exercises-operations';
+import { getExercises } from 'redux/exercises/exercises-selector';
+// import { Outlet, NavLink } from 'react-router-dom';
 
 const MyTrainingPage = () => {
+  const dispatch = useDispatch()
+  const exercises = useSelector(getExercises)
+  
+  useEffect(() => {
+    if (exercises.length === 0) {
+      dispatch(fetchExercises())
+      console.log("First fetch")
+    }
+  }, [exercises]);
+
   return (
     <section className={s.section}>
       <div className={s.container}>
-      <div className={s.trainingNavBar}>
-        <ul className={s.list}>
-          <li className={s.listItem}>
-            <NavLink className={s.link} to="/my-training">
-              Trainings
-            </NavLink>
-          </li>
-          <li className={s.listItem}>
-            <NavLink className={s.link} to="/my-training/training-setup">
-              Create training
-            </NavLink>
-          </li>
-          <li className={s.listItem}>
-            <NavLink className={s.link} to="/my-training">
-              Exercises
-            </NavLink>
-          </li>
-        </ul>
+        <SetTrainingPage />
       </div>
-      <Outlet />
-      </div>
-      
     </section>
   );
 };

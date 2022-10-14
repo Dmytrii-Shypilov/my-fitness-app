@@ -2,7 +2,7 @@ import s from './calendar.module.scss';
 import { useEffect, useState } from 'react';
 import { getSchedule } from 'redux/schedule/schedule-selector';
 import { useSelector, shallowEqual} from 'react-redux';
-import Day from 'components/Schedule/Day';
+
 
 
 
@@ -39,6 +39,7 @@ const Calendar = ({toggleModal}) => {
   });
 
   const { month, days, year } = calendar;
+
 
   const trainingSession = useSelector(getSchedule, shallowEqual)
 
@@ -138,12 +139,10 @@ const Calendar = ({toggleModal}) => {
     }
   };
 
-  // const addContent = e => {
-  //   e.target.insertAdjacentHTML('afterbegin', `<p>${e.target.id}</p>`);
-  // };
 
   return (
     <div className={s.calendarBody}>
+      <div className={s.calNav}>
       <span className={s.dateBtn} onClick={prevMonth}>
         back
       </span>
@@ -153,26 +152,28 @@ const Calendar = ({toggleModal}) => {
       <span className={s.dateBtn} onClick={nextMonth}>
         next
       </span>
+      </div>
+      
       <div className={s.headRow} id="head">
-        <div className={s.headColumn} id="c1">
+        <div className={s.headColumn} >
           Monday
         </div>
-        <div className={s.headColumn} id="c2">
+        <div className={s.headColumn}>
           Tuesday
         </div>
-        <div className={s.headColumn} id="c3">
+        <div className={s.headColumn}>
           Wednesday
         </div>
-        <div className={s.headColumn} id="c4">
+        <div className={s.headColumn}>
           Thursday
         </div>
-        <div className={s.headColumn} id="c5">
+        <div className={s.headColumn}>
           Friday
         </div>
-        <div className={s.headColumn} id="c6">
+        <div className={s.headColumn} >
           Saturday
         </div>
-        <div className={s.headColumn} id="c7">
+        <div className={s.headColumn}>
           Sunday
         </div>
       </div>
