@@ -1,13 +1,13 @@
 import s from './calendar.module.scss';
 import { useEffect, useState } from 'react';
 import { getSchedule } from 'redux/schedule/schedule-selector';
-import { useSelector, shallowEqual} from 'react-redux';
+import { useSelector} from 'react-redux';
 
 
 
 
 
-const Calendar = ({toggleModal}) => {
+const Calendar = ({toggleModal, setPeriod}) => {
   const months = [
     'January',
     'February',
@@ -41,20 +41,23 @@ const Calendar = ({toggleModal}) => {
   const { month, days, year } = calendar;
 
 
-  const trainingSession = useSelector(getSchedule, shallowEqual)
+  const schedule = useSelector(getSchedule)
 
   useEffect(() => {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
     const days = new Date(year, month + 1, 0).getDate();
-
+    setPeriod(`${month+1}.${year}`)
     setCalendar({
       month,
       year,
       days,
     });
   }, []);
+
+  
+
 
   const renderMarkup = () => {
     const today = new Date();
@@ -77,24 +80,33 @@ const Calendar = ({toggleModal}) => {
         today.toLocaleDateString() === `${i - padding}.${"0" + (month + 1)}.${year}`
             ? `${s.currentDayIcon}`
             : `${s.dayIcon}`;
-            const training = trainingSession.find(el => el.date === `${i - padding}/${month + 1}/${year}`)
+            const trainings = schedule.filter(el => el.date === `${i - padding}.${month + 1}.${year}`)
+            trainings.sort((a, b) =>
+            Number(a.time.split(':').join('')) >
+            Number(b.time.split(':').join(''))
+              ? 1
+              : -1
+          );
+          //   const sortedTrainings = trainings.sort((a, b) =>
+          //   Number(a.time.split(':').join('')) >
+          //   Number(b.time.split(':').join(''))
+          //     ? 1
+          //     : -1
+          // );
+          
         markup.push(
           <div
             onClick={toggleModal}
             className={DayClassName}
-            id={`${i - padding}/${month + 1}/${year}`}
+            id={`${i - padding}.${month + 1}.${year}`}
           >
             <span className={iconClassName}>{i - padding}</span>
-            {training && training.trainings.map(el=> {
+            {trainings && trainings.map(el=> {
               return <div className={s.training}>{el.name}</div>
             })}
           </div>
         );
       }
-      //  else {
-      //   markup.push(<div className={s.day}></div>);
-        
-      // }
     }
     return markup;
   };
@@ -117,6 +129,7 @@ const Calendar = ({toggleModal}) => {
         };
       });
     }
+    setPeriod(`${month+2}.${year}`)
   };
 
   const prevMonth = () => {
@@ -137,6 +150,7 @@ const Calendar = ({toggleModal}) => {
         };
       });
     }
+    setPeriod(`${month}.${year}`)
   };
 
 

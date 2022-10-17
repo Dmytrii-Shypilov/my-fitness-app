@@ -3,6 +3,9 @@ import { useState } from 'react';
 import Calendar from 'components/Calendar';
 import Modal from 'components/Modal';
 import AlertModal from 'components/AlertModal/AlertModal';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchSchedule } from 'redux/schedule/schedule-operations';
 
 const months = [
   'January',
@@ -20,6 +23,7 @@ const months = [
 ];
 
 const CalendarPage = () => {
+  const dispatch = useDispatch()
   const [modal, setModal] = useState({
     isModalOpen: false,
   });
@@ -29,16 +33,18 @@ const CalendarPage = () => {
     month: '',
     year: '',
   });
+  const [period, setPeriod] = useState('')
   const [alert, setAlert] = useState({
     isAlert: false,
     type: '',
     message: '',
+    callback: null
   });
 
   const { isAlert, type, message } = alert;
 
   const getDayData = date => {
-    const [day, monthFig, year] = date.split('/');
+    const [day, monthFig, year] = date.split('.');
     const month = months[monthFig - 1];
     setDayData({
       fullDate: date,
@@ -54,12 +60,19 @@ const CalendarPage = () => {
       isModalOpen: !modal.isModalOpen,
     });
   };
+
+  useEffect(()=>{
+    if(period) {
+      dispatch(fetchSchedule(period))
+    }
+    
+  }, [period])
+
   return (
     <>
       <div className={s.section}>
-        {/* <h2 className={s.title}>Calendar</h2> */}
         <div className={s.container}>
-          <Calendar toggleModal={toggleModal} />
+          <Calendar toggleModal={toggleModal} setPeriod={setPeriod} />
         </div>
       </div>
       {modal.isModalOpen && (
@@ -69,7 +82,7 @@ const CalendarPage = () => {
           setAlert={setAlert}
         />
       )}
-      {isAlert && <AlertModal alert={alert} setAlert={setAlert} />}
+      {isAlert && <AlertModal alert={alert} setAlert={setAlert} callback={alert.callback} />}
     </>
   );
 };

@@ -26,10 +26,10 @@ export const App = () => {
     if (!token) {
       navigate('/authorization')
     }
-    if (trainings.length === 0 && token) {
+    if (token) {
       dispatch(fetchTrainings(token));
     }
-  }, [trainings, token])
+  }, [token])
 
   useEffect(()=>{
     const user = JSON.parse(localStorage.getItem('user'))

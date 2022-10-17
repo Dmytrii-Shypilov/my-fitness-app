@@ -1,27 +1,25 @@
 import s from './training-day.module.scss';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { createTrainingSession } from 'redux/trainings/trainings-slice';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addTraining } from 'redux/trainings/trainings-operations';
 import image from '../../images/dumbell.png'
+
+
+
 const TrainingDay = ({ trainingDay, resetTraining }) => {
   const { name, exercises } = trainingDay;
   const [flags, setFlags] = useState({
     isNotesOpen: false,
   })
-  const [note, setNote] = useState({
-    content: ''
-  })
+  const [note, setNote] = useState('')
   
 const {isNotesOpen} = flags
-const {content} = note
 
 const dispatch = useDispatch()
 
 
 const onInput = (e) => {
-  setNote({
-    content: e.target.value
-  })
+  setNote(e.target.value)
 }
 
 const toggleNotes = () => {
@@ -36,17 +34,15 @@ const createTraining = () => {
   
   const training = {
     ...trainingDay,
-    notes: note.content,
+    notes: note,
   }
 
-  dispatch(createTrainingSession(training))
+  dispatch(addTraining(training))
   resetTraining()
   setFlags({
     isNotesOpen: false,
   })
-  setNote({
-    content: '',
-  })
+  setNote('')
 
 }
 
@@ -99,10 +95,10 @@ const createTraining = () => {
                 Add notes
                 </span>
                 {isNotesOpen && <div className={s.notesWrap}>
-                <textarea onChange={onInput} value={content} type="text" className={s.notes}/>
+                <textarea onChange={onInput} value={note} type="text" className={s.notes}/>
                 </div>}
                 <div className={s.btnWrap}>
-                <button onClick={createTraining} type="button" className={s.submitBtn}>
+                <button onClick={createTraining} type="button" className={s.btn}>
                   Save
                 </button>
                 </div>

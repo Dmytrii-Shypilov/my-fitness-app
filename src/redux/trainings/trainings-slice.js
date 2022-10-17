@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { fetchTrainings } from './trainings-operations';
+import { fetchTrainings, addTraining, deleteTraining } from './trainings-operations';
 
 const initialState = {
     trainings: []
@@ -8,18 +8,19 @@ const initialState = {
 const trainingsSlice = createSlice({
   name: 'trainings',
   initialState,
-  reducers: {
-    createTrainingSession: (store, { payload }) => {
-       store.trainings.push(payload)
-    },
-  },
+
   extraReducers: {
     [fetchTrainings.fulfilled]: (store, {payload}) => {
       store.trainings = [...payload]
+    },
+    [addTraining.fulfilled]: (store, {payload}) => {
+      store.trainings.push(payload)
+    },
+    [deleteTraining.fulfilled]: (store, {payload}) => {
+      const filteredList = store.trainings.filter(el=> el._id !== payload._id)
+      store.trainings = [...filteredList]
     }
-
-  }
+  },
 });
 
-export const { createTrainingSession } = trainingsSlice.actions;
 export default trainingsSlice.reducer;

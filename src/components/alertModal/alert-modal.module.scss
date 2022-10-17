@@ -41,3 +41,10 @@
     background-color: red;
     cursor: pointer;
 }
+
+.confirmBtn {
+    @extend .btn;
+    &:not(:last-of-type) {
+        margin-right: 10px;
+    }
+}

@@ -1,0 +1,41 @@
+.wrapper {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.spinner{
+width: 60px;
+height: 60px;
+display: flex;
+justify-content: center;
+align-items: center;
+border: 5px solid grey;
+border-bottom: 5px solid red;
+border-radius: 50%;
+animation: loading 0.75s ease infinite;
+}
+
+.image {
+    display: block;
+position: absolute;
+width: 20px;
+height: 20px;
+margin: 0;
+font-weight: 700;
+animation: changeSize 1s ease infinite;
+}
+
+@keyframes loading {
+    from {transform: rotate(0turn)}
+    to {transform: rotate(1turn)}
+}
+
+@keyframes changeSize {
+    from {transform: scale(1.0)}
+    to {transform: scale(1.5)}
+}

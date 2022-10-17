@@ -33,6 +33,16 @@
 
 }
 
+.panel {
+    display: flex;
+    align-items: center;
+}
+
+.btnWrapper {
+    display: flex;
+    align-items: center;
+}
+
 .time {
 margin-right: 10px;
 }
@@ -59,8 +69,13 @@ margin-right: 10px;
 }
 
 
-.btn {
-    padding: 7px 10px;
+.deleteBtn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    padding: 0 7px;
+    margin-left: 5px;
     cursor: pointer;
     border: transparent;
     border-radius: 5px;
@@ -70,3 +85,18 @@ margin-right: 10px;
       background-color: grey;
     }
   }
+
+.btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px 10px;
+    cursor: pointer;
+    border: transparent;
+    border-radius: 5px;
+    background-color: red;
+    color: #fff;
+    &:hover {
+      background-color: grey;
+    }
+}

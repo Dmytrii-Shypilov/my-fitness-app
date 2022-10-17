@@ -5,7 +5,9 @@ import DescriptionBlock from './DescriptionBlock';
 import { getTrainings } from 'redux/trainings/trainings-selector';
 import { getSchedule } from 'redux/schedule/schedule-selector';
 import { useState } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { deleteScheduleItem } from 'redux/schedule/schedule-operations';
+
 
 const modalRoot = document.querySelector('#modalRoot');
 
@@ -19,9 +21,9 @@ const Modal = ({ toggleModal, dayData, setAlert }) => {
   const { currentPage, prevPage } = page;
   const { fullDate, day, month, year } = dayData;
 
-  const trainings = useSelector(getTrainings, shallowEqual);
-  const schedule = useSelector(getSchedule, shallowEqual);
-  const thisDayTrainings = schedule.find(el => el.date === fullDate)?.trainings;
+  const trainings = useSelector(getTrainings);
+  const schedule = useSelector(getSchedule);
+  const thisDayTrainings = schedule.filter(el => el.date === fullDate); /// Here I can do sorting
 
   const openTrainings = () => {
     setPage(prevState => {
@@ -49,6 +51,17 @@ const Modal = ({ toggleModal, dayData, setAlert }) => {
     }
   };
 
+  const cancelTraining = e => {
+    const id = e.target.id;
+    const cancelTraining = () => deleteScheduleItem(id);
+    setAlert({
+      isAlert: true,
+      type: 'approval',
+      message: 'Are you sure to cancel this scheduled training?',
+      callback: [cancelTraining],
+    });
+  };
+
   return createPortal(
     <div className={s.backdrop}>
       <div className={s.modal}>
@@ -66,13 +79,22 @@ const Modal = ({ toggleModal, dayData, setAlert }) => {
                   thisDayTrainings.map(el => {
                     return (
                       <li className={s.listItem}>
-                        <span className={s.time}>{el.time}</span>
+                        <div>
+                          <span className={s.time}>{el.time}</span>
+                          <span
+                            id={el.name}
+                            onClick={openDescription}
+                            className={s.training}
+                          >
+                            {el.name}
+                          </span>
+                        </div>
                         <span
-                          id={el.name}
-                          onClick={openDescription}
-                          className={s.training}
+                          onClick={cancelTraining}
+                          id={el._id}
+                          className={s.cancelBtn}
                         >
-                          {el.name}
+                          C
                         </span>
                       </li>
                     );

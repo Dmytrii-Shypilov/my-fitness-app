@@ -20,7 +20,6 @@ export const logOutUser = createAsyncThunk(
   async(token, {rejectWithValue}) => {
     try {
       const result = await requestAPI.signOutUser(token)
-      console.log(result)
       return result
     } catch (error) {
       return rejectWithValue(error)
@@ -31,7 +30,6 @@ export const logOutUser = createAsyncThunk(
 export const getCurrentUser = createAsyncThunk(
   'users/current',
   async(token, {rejectWithValue}) => {
-    console.log(token, "async oper")
     try {
       const user = await requestAPI.fetchCurrentUser(token)
       return user
