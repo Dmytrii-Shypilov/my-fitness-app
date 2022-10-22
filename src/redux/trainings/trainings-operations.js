@@ -15,9 +15,10 @@ export const fetchTrainings = createAsyncThunk(
 
 export const addTraining = createAsyncThunk(
   'trainings/add',
-  async (training, { rejectWithValue }) => {
+  async (training, {getState, rejectWithValue }) => {
     try {
-      const addedTraining = await requestAPI.addTraining(training)
+      const {user} = getState()
+      const addedTraining = await requestAPI.addTraining(training, user.token)
       return addedTraining;
     } catch (error) {
       return rejectWithValue(error);
@@ -27,10 +28,10 @@ export const addTraining = createAsyncThunk(
 
 export const deleteTraining = createAsyncThunk(
   'trainings/delete',
-  async (id, { rejectWithValue }) => {
+  async (id, {getState, rejectWithValue }) => {
     try {
-      const deletedOne = await requestAPI.deleteTraining(id);
-        
+      const {user} = getState()
+      const deletedOne = await requestAPI.deleteTraining(id, user.token); 
       return deletedOne;
     } catch (error) {
       return rejectWithValue(error);

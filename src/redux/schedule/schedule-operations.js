@@ -3,9 +3,10 @@ import { requestAPI } from "components/services/requestAPI";
 
 export const fetchSchedule = createAsyncThunk(
     'schedule/fetch',
-    async (period, {rejectWithValue}) => {
+    async (period, {getState, rejectWithValue}) => {
         try {
-            const schedule = await requestAPI.fetchSchedule(period)
+            const {user} = getState()
+            const schedule = await requestAPI.fetchSchedule(period, user.token)
             return schedule
         } catch (error) {
             return rejectWithValue(error)
@@ -16,9 +17,10 @@ export const fetchSchedule = createAsyncThunk(
 
 export const addScheduleItem = createAsyncThunk(
     'schedule/add',
-    async (item, {rejectWithValue}) => {
+    async (item, {getState, rejectWithValue}) => {
         try {
-            const addedItem = await requestAPI.addScheduleItem(item)
+            const {user} = getState()
+            const addedItem = await requestAPI.addScheduleItem(item, user.token)
             return addedItem
         } catch (error) {
             return rejectWithValue(error)
@@ -28,9 +30,10 @@ export const addScheduleItem = createAsyncThunk(
 
 export const deleteScheduleItem = createAsyncThunk(
     'schedules/delete',
-    async (id, {rejectWithValue}) => {
+    async (id, {getState, rejectWithValue}) => {
         try {
-           const deletedOne = await requestAPI.deleteScheduleItem(id) 
+        const {user} = getState()
+           const deletedOne = await requestAPI.deleteScheduleItem(id, user.token) 
            return deletedOne
         } catch (error) {
             return rejectWithValue(error)
@@ -40,9 +43,10 @@ export const deleteScheduleItem = createAsyncThunk(
 
 export const deleteMultipleScheduleItems = createAsyncThunk(
     'schedules/delete/multiple',
-    async (name, {rejectWithValue}) => {
+    async (name, {getState, rejectWithValue}) => {
         try {
-            const deletedOne = await requestAPI.deleteMultipleScheduleItems(name)
+            const {user} = getState()
+            const deletedOne = await requestAPI.deleteMultipleScheduleItems(name, user.token)
             return deletedOne
         } catch (error) {
             return rejectWithValue(error)

@@ -1,37 +1,11 @@
 import s from './calendar.module.scss';
 import { useEffect, useState } from 'react';
 import { getSchedule } from 'redux/schedule/schedule-selector';
-import { useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
+import { calendarData } from 'components/services/calendarHelpers';
+import { getClassName, filterTrainings } from 'components/services/calendarHelpers';
 
-
-
-
-
-const Calendar = ({toggleModal, setPeriod}) => {
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    ' May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  const weekdays = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
-  ];
-
+const Calendar = ({ toggleModal, setPeriod }) => {
   const [calendar, setCalendar] = useState({
     year: null,
     month: null,
@@ -39,25 +13,21 @@ const Calendar = ({toggleModal, setPeriod}) => {
   });
 
   const { month, days, year } = calendar;
-
-
-  const schedule = useSelector(getSchedule)
+  const { months, weekdays } = calendarData;
+  const { schedule } = useSelector(getSchedule);
 
   useEffect(() => {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
     const days = new Date(year, month + 1, 0).getDate();
-    setPeriod(`${month+1}.${year}`)
+    setPeriod(`${month + 1}.${year}`);
     setCalendar({
       month,
       year,
       days,
     });
   }, []);
-
-  
-
 
   const renderMarkup = () => {
     const today = new Date();
@@ -71,39 +41,19 @@ const Calendar = ({toggleModal, setPeriod}) => {
       if (i < padding + 1) {
         markup.push(<div className={s.padDay}></div>);
       } else if (i >= padding && i < days + padding + 1) {
-        const DayClassName =
-          today.toLocaleDateString() === `${i - padding}.${"0" + (month + 1)}.${year}`
-            ? `${s.currentDay}`
-            : `${s.day}`;
-            
-        const iconClassName =
-        today.toLocaleDateString() === `${i - padding}.${"0" + (month + 1)}.${year}`
-            ? `${s.currentDayIcon}`
-            : `${s.dayIcon}`;
-            const trainings = schedule.filter(el => el.date === `${i - padding}.${month + 1}.${year}`)
-            trainings.sort((a, b) =>
-            Number(a.time.split(':').join('')) >
-            Number(b.time.split(':').join(''))
-              ? 1
-              : -1
-          );
-          //   const sortedTrainings = trainings.sort((a, b) =>
-          //   Number(a.time.split(':').join('')) >
-          //   Number(b.time.split(':').join(''))
-          //     ? 1
-          //     : -1
-          // );
-          
+        const trainings = filterTrainings(i, schedule, year, month, padding)
+        const className = getClassName(i, today, month, year, padding)
         markup.push(
           <div
             onClick={toggleModal}
-            className={DayClassName}
+            className={className.dayClassName}
             id={`${i - padding}.${month + 1}.${year}`}
           >
-            <span className={iconClassName}>{i - padding}</span>
-            {trainings && trainings.map(el=> {
-              return <div className={s.training}>{el.name}</div>
-            })}
+            <span className={className.iconClassName}>{i - padding}</span>
+            {trainings &&
+              trainings.map(el => {
+                return <div className={s.training}>{el.name.split(' ')[0]}</div>;
+              })}
           </div>
         );
       }
@@ -129,7 +79,7 @@ const Calendar = ({toggleModal, setPeriod}) => {
         };
       });
     }
-    setPeriod(`${month+2}.${year}`)
+    setPeriod(`${month + 2}.${year}`);
   };
 
   const prevMonth = () => {
@@ -150,50 +100,34 @@ const Calendar = ({toggleModal, setPeriod}) => {
         };
       });
     }
-    setPeriod(`${month}.${year}`)
+    setPeriod(`${month}.${year}`);
   };
-
 
   return (
     <div className={s.calendarBody}>
       <div className={s.calNav}>
-      <span className={s.dateBtn} onClick={prevMonth}>
-        back
-      </span>
-      <span className={s.title}>
-        {months[month]} {year}
-      </span>
-      <span className={s.dateBtn} onClick={nextMonth}>
-        next
-      </span>
+        <span className={s.dateBtn} onClick={prevMonth}>
+          back
+        </span>
+        <span className={s.title}>
+          {months[month]} {year}
+        </span>
+        <span className={s.dateBtn} onClick={nextMonth}>
+          next
+        </span>
       </div>
-      
+
       <div className={s.headRow} id="head">
-        <div className={s.headColumn} >
-          Monday
-        </div>
-        <div className={s.headColumn}>
-          Tuesday
-        </div>
-        <div className={s.headColumn}>
-          Wednesday
-        </div>
-        <div className={s.headColumn}>
-          Thursday
-        </div>
-        <div className={s.headColumn}>
-          Friday
-        </div>
-        <div className={s.headColumn} >
-          Saturday
-        </div>
-        <div className={s.headColumn}>
-          Sunday
-        </div>
+        <div className={s.headColumn}>Monday</div>
+        <div className={s.headColumn}>Tuesday</div>
+        <div className={s.headColumn}>Wednesday</div>
+        <div className={s.headColumn}>Thursday</div>
+        <div className={s.headColumn}>Friday</div>
+        <div className={s.headColumn}>Saturday</div>
+        <div className={s.headColumn}>Sunday</div>
       </div>
-      <div className={s.calendarDays}>{renderMarkup(days)}</div>
+      <div className={s.calendarDays}>{renderMarkup()}</div>
     </div>
-    
   );
 };
 

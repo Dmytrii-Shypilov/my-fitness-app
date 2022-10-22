@@ -10,10 +10,13 @@ const DescriptionBlock = ({ goBack, clickedTraining }) => {
           {exercises.map((el, idx) => {
             return (
               <li className={s.listItem}>
-                <p className={s.exerciseName}>{idx+1}. {el.exercise}</p>
-                <span className={s.params}>{el.resistance} kg |</span>
-                <span className={s.params}>{el.sets} x {el.repetitions} |</span>
-                <span className={s.params}>{el.restInterval} secs</span>
+                <p className={s.exerciseName}>{idx+1}. {el.exercise}:</p>
+                <div className={s.paramsBlock}>
+                <span className={s.params}>{el.resistance} kg, </span>
+                <span className={s.params}>sets: {el.sets}, reps: {el.repetitions},</span>
+                <span className={s.params}>rest: {el.restInterval} secs</span>
+                </div>
+                
               </li>
             );
           })}

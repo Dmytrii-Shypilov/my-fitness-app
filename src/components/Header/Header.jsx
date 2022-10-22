@@ -4,6 +4,7 @@ import logo from './logo.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from 'redux/user/user-selector';
 import { logOutUser } from 'redux/user/user-operations';
+import Container from 'components/Container';
 
 const getClassName = ({ isActive }) => {
   return isActive ? `${s.link} ${s.active}` : s.link;
@@ -20,7 +21,7 @@ const Header = () => {
 
   return (
     <header className={s.header}>
-      <div className={s.container}>
+    <Container>
         <div className={s.headerWrapper}>
           <div className={s.navPanel}>
             <div className={s.logo}>
@@ -31,27 +32,22 @@ const Header = () => {
                 {token && (
                   <>
                     <li className={s.listItem}>
-                      <NavLink to="/" className={getClassName}>
+                      <NavLink to="/home" className={getClassName}>
                         Home
                       </NavLink>
                     </li>
                     <li className={s.listItem}>
                       <NavLink to="/my-training" className={getClassName}>
-                        My Trainings
+                        My Training
                       </NavLink>
                     </li>
                     <li className={s.listItem}>
-                      <NavLink to="/my-diet" className={getClassName}>
+                      <NavLink to="/calendar" className={getClassName}>
                         Calendar
                       </NavLink>
                     </li>
                   </>
                 )}
-                {!token && <li className={s.listItem}>
-                  <NavLink to="/authorization" className={getClassName}>
-                    Authorization
-                  </NavLink>
-                </li>}
               </ul>
             </nav>
           </div>
@@ -65,7 +61,7 @@ const Header = () => {
             </div>
           )}
         </div>
-      </div>
+      </Container>
     </header>
   );
 };

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Notify } from 'notiflix';
 
 const instance = axios.create({
   baseURL: 'http://localhost:4000',
@@ -26,8 +27,7 @@ const fetchTrainings = async token => {
   }
 };
 
-const addTraining = async training => {
-  const { token } = JSON.parse(localStorage.getItem('user'));
+const addTraining = async (training, token) => {
   try {
     const { data } = await instance.post('/trainings/add', training, {
       headers: {
@@ -40,8 +40,7 @@ const addTraining = async training => {
   }
 };
 
-const deleteTraining = async id => {
-  const { token } = JSON.parse(localStorage.getItem('user'));
+const deleteTraining = async (id, token) => {
   try {
     const { data } = await instance.delete(`/trainings/${id}`, {
       headers: {
@@ -59,7 +58,7 @@ const signUpUser = async body => {
     const { data } = await instance.post('/users/signup', body);
     return data;
   } catch (error) {
-    console.log(error.message);
+    Notify.failure(error.response.data.message);
   }
 };
 
@@ -68,7 +67,11 @@ const sigInUser = async body => {
     const { data } = await instance.post('/users/signin', body);
     return data;
   } catch (error) {
-    console.log(error.message);
+    if (error.response.status === 401) {
+      Notify.failure(error.response.data.message)
+      return(error)
+    }
+    
   }
 };
 
@@ -90,16 +93,21 @@ const fetchCurrentUser = async token => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    });
+    })
     return data;
   } catch (error) {
-    console.log(error);
+    if(error.response.status === 401) {
+      localStorage.clear()
+    }
+    return ({
+      token: null,
+      email: null
+    })
+
   }
 };
 
-const fetchSchedule = async period => {
-  console.log(period)
-  const { token } = JSON.parse(localStorage.getItem('user'));
+const fetchSchedule = async (period, token) => {
   try {
     const { data } = await instance.get(`schedules/${period}`, {
       headers: {
@@ -112,8 +120,7 @@ const fetchSchedule = async period => {
   }
 };
 
-const addScheduleItem = async (item) => {
-  const { token } = JSON.parse(localStorage.getItem('user'));
+const addScheduleItem = async (item, token) => {
   try {
     const { data } = await instance.post('/schedules/add', item, {
       headers: {
@@ -126,8 +133,7 @@ const addScheduleItem = async (item) => {
   }
 }
 
-const deleteScheduleItem = async id => {
-  const { token } = JSON.parse(localStorage.getItem('user'));
+const deleteScheduleItem = async (id, token) => {
   try {
     const {data} = await instance.delete(`/schedules/delete/${id}`, {
       headers: {
@@ -140,16 +146,13 @@ const deleteScheduleItem = async id => {
   }
 }
 
-const deleteMultipleScheduleItems = async name => {
-  console.log("axios multiple")
-  const {token} = JSON.parse(localStorage.getItem('user'))
+const deleteMultipleScheduleItems = async (name, token) => {
   try {
     const {data} = await instance.delete(`/schedules/delete/multiple/${name}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
-    console.log("response recieved")
     return data
   } catch (error) {
     console.log(error)

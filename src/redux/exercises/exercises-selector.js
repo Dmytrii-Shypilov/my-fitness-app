@@ -1,1 +1,1 @@
-export const getExercises = store => store.exercises.exercises 
+export const getExercises = store => store.exercises.exercises

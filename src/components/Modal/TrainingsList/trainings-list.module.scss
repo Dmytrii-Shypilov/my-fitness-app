@@ -4,22 +4,25 @@
     border: 1px solid grey;
     border-radius: 5px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
+   
 }
 
 .list {
+    height: 100%;
     list-style: none;
-    padding: 0 20px;
-
+    overflow-y: auto;
+   
+   
 }
 
 .listItem {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px dashed grey;
-    padding: 5px 0;
+    padding: 5px 10px;
     margin-bottom: 5px;
+
 }
 
 .training {
@@ -44,7 +47,7 @@
 }
 
 .time {
-margin-right: 10px;
+    margin-right: 10px;
 }
 
 .addBtn {
@@ -70,7 +73,7 @@ margin-right: 10px;
 
 
 .deleteBtn {
-    display: inline-flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     height: 25px;
@@ -99,4 +102,23 @@ margin-right: 10px;
     &:hover {
       background-color: grey;
     }
+}
+
+.message {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text {
+    font-weight: 600;
+    text-align: center;
+    &:not(:last-of-type) {
+        margin-bottom: 10px;
+    }
+}
+
+.link {
+    color: red;
 }

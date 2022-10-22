@@ -1,6 +1,5 @@
 import s from './set-training.module.scss';
 import { useState } from 'react';
-
 import ExerciseForm from 'components/ExerciseForm';
 import TrainingDay from 'components/TrainingDay';
 import AlertModal from 'components/AlertModal';
@@ -47,7 +46,7 @@ const SetTrainingPage = () => {
     });
   };
   return (
-    <div className={s.container}>
+    <div className={s.wrapper}>
       <div>
         <ExerciseForm
           addExercise={addExercise}
@@ -58,7 +57,7 @@ const SetTrainingPage = () => {
         />
       </div>
       <div>
-        <TrainingDay trainingDay={day} resetTraining={resetTraining} />
+        <TrainingDay trainingDay={day} resetTraining={resetTraining} setDay={setDay} />
       </div>
      {alert.isAlert && <AlertModal alert={alert} setAlert={setAlert}/>}
     </div>

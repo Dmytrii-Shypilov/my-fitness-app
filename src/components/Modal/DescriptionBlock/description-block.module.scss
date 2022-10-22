@@ -5,6 +5,7 @@
   border-radius: 5px;
   margin: 0 auto;
   padding: 20px;
+  overflow-y: auto;
 }
 
 .list {
@@ -13,8 +14,7 @@
 }
 
 .listItem {
-  display: flex;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 }
 
 .trainingName {
@@ -26,12 +26,16 @@
 
 .exerciseName {
   font-weight: 700;
-  margin-right: 15px;
+  margin-bottom: 5px;
+}
+
+.paramsBlock {
+  margin-left: 30px;
 }
 
 .params {
   font-weight: 600;
-  color: red;
+  color: #5a5a5a;
   margin-right: 7px;
 }
 
@@ -39,10 +43,6 @@
   font-weight: 700;
   margin-bottom: 5px;
 }
-
-// .notes {
-//     overflow: scroll;
-// }
 
 .btnContainer {
   display: flex;

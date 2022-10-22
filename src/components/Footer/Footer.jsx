@@ -1,16 +1,16 @@
-import s from './footer.module.scss'
-
+import s from './footer.module.scss';
+import Container from 'components/Container';
 
 const Footer = () => {
-    return(
-        <footer className={s.footer}>
-            <div className={s.container}>
-                <p className={s.text}>
-                    ScienceFit
-                </p>
-            </div>
-        </footer>
-    )
-}
+  return (
+    <footer className={s.footer}>
+      <Container>
+        <div className={s.textWrapper}>
+          <p className={s.text}>ScienceFit</p>
+        </div>
+      </Container>
+    </footer>
+  );
+};
 
-export default Footer
+export default Footer;

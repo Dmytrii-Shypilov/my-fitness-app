@@ -1,1 +1,1 @@
-export const getSchedule = store => store.schedule.schedule
+export const getSchedule = store => store.schedule

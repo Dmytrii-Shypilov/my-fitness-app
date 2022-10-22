@@ -40,6 +40,9 @@
     color: #fff;
     background-color: red;
     cursor: pointer;
+    &:hover {
+        background-color: gray;
+    }
 }
 
 .confirmBtn {

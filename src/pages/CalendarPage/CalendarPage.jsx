@@ -3,45 +3,44 @@ import { useState } from 'react';
 import Calendar from 'components/Calendar';
 import Modal from 'components/Modal';
 import AlertModal from 'components/AlertModal/AlertModal';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchSchedule } from 'redux/schedule/schedule-operations';
+import Container from 'components/Container';
+import { calendarData } from 'components/services/calendarHelpers';
 
-const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  ' May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
+
 
 const CalendarPage = () => {
-  const dispatch = useDispatch()
-  const [modal, setModal] = useState({
-    isModalOpen: false,
-  });
+  const dispatch = useDispatch();
+  const [isModalOpen, setModal] = useState(false);
   const [dayData, setDayData] = useState({
     fullDate: '',
     day: '',
     month: '',
     year: '',
   });
-  const [period, setPeriod] = useState('')
+  const [period, setPeriod] = useState('');
   const [alert, setAlert] = useState({
     isAlert: false,
     type: '',
     message: '',
-    callback: null
+    callback: null,
   });
 
-  const { isAlert, type, message } = alert;
+  const { isAlert} = alert;
+  const {months} = calendarData
+
+  const toggleModal = (e) => {
+    getDayData(e.currentTarget.id);
+    if(!isModalOpen ) {
+      setModal(true)
+      document.body.style.overflow = "hidden"
+      return
+    }
+    setModal(false)
+    document.body.style.overflow = "visible"
+  }
 
   const getDayData = date => {
     const [day, monthFig, year] = date.split('.');
@@ -54,35 +53,34 @@ const CalendarPage = () => {
     });
   };
 
-  const toggleModal = e => {
-    getDayData(e.currentTarget.id);
-    setModal({
-      isModalOpen: !modal.isModalOpen,
-    });
-  };
 
-  useEffect(()=>{
-    if(period) {
-      dispatch(fetchSchedule(period))
+  useEffect(() => {
+    if (period) {
+      dispatch(fetchSchedule(period));
     }
-    
-  }, [period])
+  }, [period]);
 
   return (
     <>
-      <div className={s.section}>
-        <div className={s.container}>
+      <section className={s.section}>
+        <Container>
           <Calendar toggleModal={toggleModal} setPeriod={setPeriod} />
-        </div>
-      </div>
-      {modal.isModalOpen && (
+        </Container>
+      </section>
+      {isModalOpen && (
         <Modal
           toggleModal={toggleModal}
           dayData={dayData}
           setAlert={setAlert}
         />
       )}
-      {isAlert && <AlertModal alert={alert} setAlert={setAlert} callback={alert.callback} />}
+      {isAlert && (
+        <AlertModal
+          alert={alert}
+          setAlert={setAlert}
+          callback={alert.callback}
+        />
+      )}
     </>
   );
 };

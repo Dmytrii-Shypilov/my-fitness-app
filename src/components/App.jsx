@@ -1,58 +1,99 @@
-import Header from './Header';
 import { Route, Routes } from 'react-router-dom';
-import { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchTrainings } from 'redux/trainings/trainings-operations';
-import { getTrainings } from 'redux/trainings/trainings-selector';
-import MyTrainingPage from 'pages/MyTrainingPage';
-import CalendarPage from 'pages/CalendarPage';
-import HomePage from 'pages/HomePage';
-import BlogPage from 'pages/BlogPage';
-import AuthorizationPage from 'pages/AuthorizationPage';
-import Footer from './Footer';
-import { getCurrentUser } from 'redux/user/user-operations';
-import { useNavigate } from 'react-router-dom';
+import { PublicRoute } from 'routes/PublicRoute';
+import { PrivateRoute } from 'routes/PrivateRoute';
 import { getUser } from 'redux/user/user-selector';
+import Loader from './Loader/Loader';
+import { getCurrentUser } from 'redux/user/user-operations';
+
+import Header from './Header';
+import Footer from './Footer';
+const HomePage = lazy(() =>
+  import('../pages/HomePage' /* webpackChunkName: "home" */)
+);
+const AuthorizationPage = lazy(() =>
+  import('../pages/AuthorizationPage' /* webpackChunkName: "authorization" */)
+);
+const MyTrainingPage = lazy(() =>
+  import('../pages/MyTrainingPage' /* webpackChunkname: "my-training" */)
+);
+const CalendarPage = lazy(() =>
+  import('../pages/CalendarPage' /* webpackChunkName: "calendar" */)
+);
 
 
 export const App = () => {
-  const trainings = useSelector(getTrainings);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const {token} = useSelector(getUser)
-
-  useEffect(()=> {
-    if (!token) {
-      navigate('/authorization')
-    }
+  const { token} = useSelector(getUser);
+  useEffect(() => {
     if (token) {
       dispatch(fetchTrainings(token));
     }
-  }, [token])
+  }, [token]);
 
-  useEffect(()=>{
-    const user = JSON.parse(localStorage.getItem('user'))
-    if (user) {
-      dispatch(getCurrentUser(user.token))
-    }
- 
-  })
+  useEffect(()=> {
+    dispatch(getCurrentUser(token))
+  }, [dispatch])
 
   return (
     <>
-      <Header/>
-      <Suspense>
+    <div class='wrapper'>
+      <Suspense
+        fallback={
+            <Loader/>   
+        }
+      >
+        <Header />
         <Routes>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/my-training" element={<MyTrainingPage />} />
-          <Route path="/my-diet" element={<CalendarPage />}></Route>
-          <Route path="/blog" element={<BlogPage />}></Route>
-          <Route path="*" element={<HomePage replace />}></Route>
-          <Route path="/authorization" element={<AuthorizationPage/>}></Route>
+          <Route
+            path="/home"
+            element={
+              <PrivateRoute>
+                <HomePage />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path="/my-training"
+            element={
+              <PrivateRoute>
+                <MyTrainingPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/calendar"
+            element={
+              <PrivateRoute>
+                <CalendarPage />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path="*"
+            element={
+              <PublicRoute>
+                <AuthorizationPage />
+              </PublicRoute>
+            }
+          ></Route>
+          {!token && (
+            <Route
+              path="/authorization"
+              element={
+                <PublicRoute>
+                  <AuthorizationPage />
+                </PublicRoute>
+              }
+            ></Route>
+          )}
         </Routes>
       </Suspense>
-      <Footer/>
+      </div>
+      <Footer />
     </>
   );
 };

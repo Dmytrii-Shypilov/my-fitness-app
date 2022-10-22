@@ -27,6 +27,23 @@ ul {
   padding: 0;
 }
 
-html {
-  --mainFont: "Roboto Serif";
+body {
+  font-family: "Roboto" ;
 }
+
+.wrapper {
+  min-height: 100vh;
+  width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: lightgray;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: red;
+  border-radius: 5px;
+}
+

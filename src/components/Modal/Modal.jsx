@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { deleteScheduleItem } from 'redux/schedule/schedule-operations';
 
 
+
 const modalRoot = document.querySelector('#modalRoot');
 
 const Modal = ({ toggleModal, dayData, setAlert }) => {
@@ -22,8 +23,12 @@ const Modal = ({ toggleModal, dayData, setAlert }) => {
   const { fullDate, day, month, year } = dayData;
 
   const trainings = useSelector(getTrainings);
-  const schedule = useSelector(getSchedule);
-  const thisDayTrainings = schedule.filter(el => el.date === fullDate); /// Here I can do sorting
+  const {schedule} = useSelector(getSchedule);
+  const thisDayTrainings = schedule.filter(el => el.date === fullDate).sort((a, b) =>
+  Number(a.time.split(':').join('')) >
+  Number(b.time.split(':').join(''))
+    ? 1
+    : -1); 
 
   const openTrainings = () => {
     setPage(prevState => {
@@ -99,7 +104,9 @@ const Modal = ({ toggleModal, dayData, setAlert }) => {
                       </li>
                     );
                   })}
+                 
               </ul>
+              {!thisDayTrainings.length && <p className={s.message}>There is no training scheduled for today</p>}
             </div>
             <div className={s.btnContainer}>
               <button className={s.btn} onClick={openTrainings} type="button">

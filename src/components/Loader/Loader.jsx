@@ -1,5 +1,5 @@
 import s from './loader.module.scss';
-import image from '../../images/dumbel.png'
+import image from '../../images/dumbell-spinner.png';
 
 const Loader = () => {
   return (

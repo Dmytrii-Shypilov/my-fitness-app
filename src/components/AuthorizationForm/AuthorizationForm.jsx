@@ -5,8 +5,6 @@ import { useDispatch } from 'react-redux';
 import { registerUser, logInUser } from 'redux/user/user-operations';
 import { useSelector } from 'react-redux';
 import { getUser } from 'redux/user/user-selector';
-import { useNavigate } from 'react-router-dom';
-
 
 const dirtyState = {
   emailDirty: false,
@@ -21,7 +19,7 @@ const errorState = {
 export default function AuthorizationForm() {
   const dispatch = useDispatch();
   const user = useSelector(getUser)
-  const navigate = useNavigate()
+
   
 
   const [form, setForm] = useState({

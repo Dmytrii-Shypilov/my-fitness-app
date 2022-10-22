@@ -33,7 +33,9 @@ export const getCurrentUser = createAsyncThunk(
     try {
       const user = await requestAPI.fetchCurrentUser(token)
       return user
+     
     } catch (error) {
+      console.log(error)
       return rejectWithValue(error)
     }
   }

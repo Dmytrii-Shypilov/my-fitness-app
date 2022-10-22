@@ -1,8 +1,14 @@
 import s from './trainings-list.module.scss';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteTraining } from 'redux/trainings/trainings-operations';
-import { addScheduleItem, deleteMultipleScheduleItems } from 'redux/schedule/schedule-operations';
+import {
+  addScheduleItem,
+  deleteMultipleScheduleItems,
+} from 'redux/schedule/schedule-operations';
+import { getUser } from 'redux/user/user-selector';
+import { getTimeArray } from 'components/services/calendarHelpers';
+import { NavLink } from 'react-router-dom';
 
 const TrainingList = ({
   goBack,
@@ -13,6 +19,7 @@ const TrainingList = ({
   schedule,
 }) => {
   const dispatch = useDispatch();
+  const { token } = useSelector(getUser);
 
   const [training, setTraining] = useState({
     name: '',
@@ -30,6 +37,7 @@ const TrainingList = ({
   };
 
   const addTrainingItem = e => {
+    console.dir(e.target)
     if (!time || time === '--:--' || (time && name !== e.target.id)) {
       setAlert({
         isAlert: true,
@@ -39,7 +47,7 @@ const TrainingList = ({
       return;
     }
     if (schedule.length > 0) {
-      const trainingslist = schedule.filter(el => el.date === fullDate)
+      const trainingslist = schedule.filter(el => el.date === fullDate);
       const sameTraining = trainingslist?.find(el => el.name === name);
       const sameTime = trainingslist?.find(el => el.time === time);
 
@@ -60,9 +68,8 @@ const TrainingList = ({
         });
         return;
       }
-      
     }
-   
+
     if (e.target.id !== name) {
       return;
     }
@@ -77,68 +84,83 @@ const TrainingList = ({
 
   const removeTraining = e => {
     const id = e.target.id;
-    const name = e.target.title.split(" ").join('-') 
-    const removeTraining = () => deleteTraining(id)
-    const updateSchedule = () => deleteMultipleScheduleItems(name)
+    const name = e.target.title.split(' ').join('-');
+    const removeTraining = () => deleteTraining(id);
+    const updateSchedule = () => deleteMultipleScheduleItems(name);
 
     setAlert({
       isAlert: true,
       type: 'approval',
       message:
         'Are you sure to delete this training? All related records in your schedule will be also removed!',
-      callback: [removeTraining, updateSchedule]
-      
+      callback: [removeTraining, updateSchedule],
     });
   };
-
+  const timeArray = getTimeArray();
   return (
     <section>
       <div className={s.listBlock}>
-        <ul className={s.list}>
-          {trainings.map(el => {
-            return (
-              <li className={s.listItem}>
-                <span
-                  id={el.name}
-                  className={s.training}
-                  onClick={openDescription}
-                >
-                  {el.name}
-                </span>
-                <div className={s.panel}>
-                  <select
-                    className={s.time}
-                    onChange={onChange}
-                    name="time"
+        {!trainings.length && (
+          <div className={s.message}>
+            <div>
+              <p className={s.text}>There is no training created yet</p>
+              <p className={s.text}>
+                You can create your training{' '}
+                <NavLink to="/my-training" className={s.link}>
+                  here
+                </NavLink>
+              </p>
+            </div>
+          </div>
+        )}
+        {trainings.length > 0 && (
+          <ul className={s.list}>
+            {trainings.map(el => {
+              return (
+                <li className={s.listItem}>
+                  <span
                     id={el.name}
+                    className={s.training}
+                    onClick={openDescription}
                   >
-                    <option value="--:--">--:--</option>
-                    <option value="15:00">15:00</option>
-                    <option value="15:30">15:30</option>
-                    <option value="16:00">16:00</option>
-                  </select>
-                  <div className={s.btnWrapper}>
-                    <span
-                      onClick={addTrainingItem}
+                    {el.name}
+                  </span>
+                  <div className={s.panel}>
+                    <select
+                      className={s.time}
+                      onChange={onChange}
+                      name="time"
                       id={el.name}
-                      className={s.addBtn}
                     >
-                      Add
-                    </span>
-                    <span
-                      onClick={removeTraining}
-                      id={el._id}
-                      title={el.name}
-                      className={s.deleteBtn}
-                    >
-                      D
-                    </span>
+                      <option value="--:--">--:--</option>
+                      {timeArray.map(el => (
+                        <option value={el}>{el}</option>
+                      ))}
+                    </select>
+                    <div className={s.btnWrapper}>
+                      <span
+                        onClick={addTrainingItem}
+                        id={el.name}
+                        className={s.addBtn}
+                        value='sssss'
+                      >
+                        Add
+                      </span>
+                      <span
+                        onClick={removeTraining}
+                        id={el._id}
+                        title={el.name}
+                        className={s.deleteBtn}
+                      >
+                        D
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
       <div className={s.btnContainer}>
         <button onClick={goBack} className={s.btn} type="button">
