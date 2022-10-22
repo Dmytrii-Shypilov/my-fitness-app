@@ -2,7 +2,6 @@ import s from './calendar-page.module.scss';
 import { useState } from 'react';
 import Calendar from 'components/Calendar';
 import Modal from 'components/Modal';
-import AlertModal from 'components/AlertModal';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchSchedule } from 'redux/schedule/schedule-operations';
