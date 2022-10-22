@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './auth-form.module.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerUser, logInUser } from 'redux/user/user-operations';
 
