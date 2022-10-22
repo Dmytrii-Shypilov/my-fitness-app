@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 const modalRoot = document.querySelector('#modalRoot');
 
-const AlertModal = ({ alert, setAlert, callback }) => {
+export const AlertModal = ({ alert, setAlert, callback }) => {
   const { type, message } = alert;
   const dispatch = useDispatch();
 
@@ -53,4 +53,4 @@ const AlertModal = ({ alert, setAlert, callback }) => {
 };
 
 
-export default AlertModal
+

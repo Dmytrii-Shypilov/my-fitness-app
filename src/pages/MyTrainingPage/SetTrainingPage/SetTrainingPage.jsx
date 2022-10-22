@@ -2,7 +2,7 @@ import s from './set-training.module.scss';
 import { useState } from 'react';
 import ExerciseForm from 'components/ExerciseForm';
 import TrainingDay from 'components/TrainingDay';
-import AlertModal from 'components/AlertModal';
+import { AlertModal } from 'components/AlertModal/AlertModal';
 
 const SetTrainingPage = () => {
   const [day, setDay] = useState({
