@@ -10,7 +10,10 @@ const fetchExercises = async () => {
     const { data } = await instance.get('/exercises');
     return data;
   } catch (error) {
-    console.log(error.message);
+    if(error.response.status === 401) {
+      localStorage.clear()
+    }
+    return ([])
   }
 };
 
@@ -23,7 +26,10 @@ const fetchTrainings = async token => {
     });
     return data;
   } catch (error) {
-    console.log(error.message);
+    if(error.response.status === 401) {
+      localStorage.clear()
+    }
+    return ([])
   }
 };
 
@@ -36,7 +42,11 @@ const addTraining = async (training, token) => {
     });
     return data;
   } catch (error) {
-    console.log(error.message);
+    if(error.response.status === 401) {
+      localStorage.clear()
+      Notify.failure(`${error.response.data.message}. Your session has expired. Please, log in again`)
+    }
+    return ({})
   }
 };
 
@@ -49,7 +59,11 @@ const deleteTraining = async (id, token) => {
     });
     return data;
   } catch (error) {
-    console.log(error.message);
+    if(error.response.status === 401) {
+      localStorage.clear()
+      Notify.failure(`${error.response.data.message}. Your session has expired. Please, log in again`)
+    }
+    return ({})
   }
 };
 
@@ -59,6 +73,10 @@ const signUpUser = async body => {
     return data;
   } catch (error) {
     Notify.failure(error.response.data.message);
+    return ({
+      token: null,
+      email: null
+    })
   }
 };
 
@@ -67,10 +85,11 @@ const sigInUser = async body => {
     const { data } = await instance.post('/users/signin', body);
     return data;
   } catch (error) {
-    if (error.response.status === 401) {
       Notify.failure(error.response.data.message)
-      return(error)
-    }
+      return ({
+        token: null,
+        email: null
+      })
     
   }
 };
@@ -83,7 +102,7 @@ const signOutUser = async token => {
       },
     });
   } catch (error) {
-    console.log(error.message);
+    console.log(error.response.data.message);
   }
 };
 
@@ -116,7 +135,10 @@ const fetchSchedule = async (period, token) => {
     });
     return data;
   } catch (error) {
-    console.log(error);
+    if(error.response.status === 401) {
+      localStorage.clear()
+    }
+    return ([])
   }
 };
 
@@ -129,7 +151,11 @@ const addScheduleItem = async (item, token) => {
     });
     return data;
   } catch (error) {
-    console.log(error);
+    if(error.response.status === 401) {
+      localStorage.clear()
+      Notify.failure(`${error.response.data.message}. Your session has expired. Please, log in again`)
+    }
+    return ({})
   }
 }
 
@@ -142,7 +168,11 @@ const deleteScheduleItem = async (id, token) => {
     })
     return data
   } catch (error) {
-    console.log(error)
+    if(error.response.status === 401) {
+      localStorage.clear()
+      Notify.failure(`${error.response.data.message}. Your session has expired. Please, log in again`)
+    }
+    return ([])
   }
 }
 
@@ -155,7 +185,11 @@ const deleteMultipleScheduleItems = async (name, token) => {
     })
     return data
   } catch (error) {
-    console.log(error)
+    if(error.response.status === 401) {
+      localStorage.clear()
+      Notify.failure(`${error.response.data.message}. Your session has expired. Please, log in again`)
+    }
+    return ({})
   }
 }
 

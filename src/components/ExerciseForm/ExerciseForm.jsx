@@ -63,7 +63,7 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset, setAlert 
       fullList: exercises,
       filteredList: exercises,
     })
-  }, [resetForm, exercises]);
+  }, [resetForm, setFormReset, exercises]);
 
   const onInput = e => {
     if (e.target.name === 'day-name') {
@@ -121,23 +121,24 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset, setAlert 
   };
 
   const buttonsAction = e => {
+    const [type, action] = e.target.id.split(' ')
     let step = 1;
-    if (e.target.id === 'restInterval') {
+    if (type === 'restInterval') {
       step = 5;
     }
-    if (e.target.title === 'increase') {
+    if (action === 'increase') {
       setForm(prevState => {
         return {
           ...prevState,
-          [e.target.id]: Number(form[e.target.id]) + step,
+          [type]: Number(form[type]) + step,
         };
       });
     } else {
-      if (form[e.target.id] - step > 0) {
+      if (form[type] - step > 0) {
         setForm(prevState => {
           return {
             ...prevState,
-            [e.target.id]: Number(form[e.target.id]) - step,
+            [type]: Number(form[type]) - step,
           };
         });
       }
@@ -264,8 +265,7 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset, setAlert 
                 <div className={s.inputWrap}>
                   <span
                     onClick={buttonsAction}
-                    title="decrease"
-                    id="resistance"
+                    id="resistance decrease"
                     className={s.decrease}
                   >
                     -
@@ -279,8 +279,7 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset, setAlert 
                     placeholder="kg"
                   />
                   <span
-                    title="increase"
-                    id="resistance"
+                    id="resistance increase"
                     onClick={buttonsAction}
                     className={s.increase}
                   >
@@ -297,8 +296,7 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset, setAlert 
                 <div className={s.inputWrap}>
                   <span
                     onClick={buttonsAction}
-                    title="decrease"
-                    id="sets"
+                    id="sets decrease"
                     className={s.decrease}
                   >
                     -
@@ -312,8 +310,7 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset, setAlert 
                     placeholder="sets"
                   />
                   <span
-                    title="increase"
-                    id="sets"
+                    id="sets increase"
                     onClick={buttonsAction}
                     className={s.increase}
                   >
@@ -330,8 +327,7 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset, setAlert 
                 <div className={s.inputWrap}>
                   <span
                     onClick={buttonsAction}
-                    id="repetitions"
-                    title="decrease"
+                    id="repetitions decrease" 
                     className={s.decrease}
                   >
                     -
@@ -345,8 +341,7 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset, setAlert 
                     placeholder="reps"
                   />
                   <span
-                    id="repetitions"
-                    title="increase"
+                    id="repetitions increase"
                     onClick={buttonsAction}
                     className={s.increase}
                   >
@@ -363,8 +358,7 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset, setAlert 
                 <div className={s.inputWrap}>
                   <span
                     onClick={buttonsAction}
-                    id="restInterval"
-                    title="decrease"
+                    id="restInterval decrease"
                     className={s.decrease}
                   >
                     -
@@ -378,8 +372,7 @@ const ExerciseForm = ({ addExercise, getName, formReset, setFormReset, setAlert 
                     placeholder="seconds"
                   />
                   <span
-                    id="restInterval"
-                    title="increase"
+                    id="restInterval increase"
                     onClick={buttonsAction}
                     className={s.increase}
                   >

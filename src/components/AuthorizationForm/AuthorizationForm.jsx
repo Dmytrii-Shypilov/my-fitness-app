@@ -18,9 +18,6 @@ const errorState = {
 
 export default function AuthorizationForm() {
   const dispatch = useDispatch();
-  const user = useSelector(getUser)
-
-  
 
   const [form, setForm] = useState({
     email: '',
@@ -183,14 +180,12 @@ export default function AuthorizationForm() {
           <button
             onClick={signInUser}
             className={s.btn}
-            disabled={!formValidity}
           >
             Sign in
           </button>
           <button
             onClick={signUpUser}
             className={s.btn}
-            disabled={!formValidity}
           >
             Sign up
           </button>

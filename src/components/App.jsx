@@ -27,20 +27,18 @@ const CalendarPage = lazy(() =>
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { token} = useSelector(getUser);
+  const {token} = useSelector(getUser);
   useEffect(() => {
     if (token) {
+      dispatch(getCurrentUser(token))
       dispatch(fetchTrainings(token));
     }
-  }, [token]);
+  }, [token, dispatch]);
 
-  useEffect(()=> {
-    dispatch(getCurrentUser(token))
-  }, [dispatch])
 
   return (
     <>
-    <div class='wrapper'>
+    <div className='wrapper'>
       <Suspense
         fallback={
             <Loader/>   

@@ -1,5 +1,4 @@
 .header {
-  font-family: var(--mainFont);
   top: 0;
   left: 0;
   width: 100%;
@@ -7,27 +6,20 @@
   border-bottom: 1px solid grey;
 }
 
-.container {
-  width: 1200px;
-  height: 100%;
-  margin-right: auto;
-  margin-left: auto;
-}
 
 .headerWrapper {
+  height: 70px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .navPanel {
+  height: 70px;
   display: flex;
   align-items: center;
 }
 
-
-.logo {
-  margin-right: 35px;
-}
 
 .active {
   color: blue;
@@ -51,8 +43,10 @@
 }
 
 .image {
+  display: block;
   height: 60px;
   width: auto;
+  margin-right: 80px;
 }
 
 .active {

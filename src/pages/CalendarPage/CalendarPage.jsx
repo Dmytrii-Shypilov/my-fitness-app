@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Calendar from 'components/Calendar';
 import Modal from 'components/Modal';
 import AlertModal from 'components/AlertModal/AlertModal';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchSchedule } from 'redux/schedule/schedule-operations';
 import Container from 'components/Container';
@@ -58,7 +58,7 @@ const CalendarPage = () => {
     if (period) {
       dispatch(fetchSchedule(period));
     }
-  }, [period]);
+  }, [period, dispatch]);
 
   return (
     <>

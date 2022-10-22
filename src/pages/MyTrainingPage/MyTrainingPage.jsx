@@ -15,7 +15,7 @@ const MyTrainingPage = () => {
     if (exercises.length === 0) {
       dispatch(fetchExercises());
     }
-  }, [exercises]);
+  }, [exercises, dispatch]);
 
   return (
     <section className={s.section}>

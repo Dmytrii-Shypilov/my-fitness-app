@@ -24,9 +24,9 @@ const Header = () => {
     <Container>
         <div className={s.headerWrapper}>
           <div className={s.navPanel}>
-            <div className={s.logo}>
+            
               <img className={s.image} src={logo} alt="logo" />
-            </div>
+           
             <nav>
               <ul className={s.list}>
                 {token && (

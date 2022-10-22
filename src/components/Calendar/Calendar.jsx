@@ -27,7 +27,7 @@ const Calendar = ({ toggleModal, setPeriod }) => {
       year,
       days,
     });
-  }, []);
+  }, [setPeriod]);
 
   const renderMarkup = () => {
     const today = new Date();

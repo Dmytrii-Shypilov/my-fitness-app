@@ -19,26 +19,20 @@ const TrainingList = ({
   schedule,
 }) => {
   const dispatch = useDispatch();
-  const { token } = useSelector(getUser);
-
-  const [training, setTraining] = useState({
-    name: '',
-    time: '',
-  });
-
+  const [selected, setSelected] = useState([]);
   const { fullDate } = dayData;
-  const { name, time } = training;
 
   const onChange = e => {
-    setTraining({
-      name: e.target.id,
-      time: e.target.value,
+    const item = {time: e.target.value, name: e.target.id}
+    setSelected(prevState => { 
+     return [...prevState.filter(el=> el.name !== e.target.id), item]
     });
   };
 
   const addTrainingItem = e => {
-    console.dir(e.target)
-    if (!time || time === '--:--' || (time && name !== e.target.id)) {
+   const choosen = selected.find(el => el.name === e.target.id)
+   
+    if (!choosen) {
       setAlert({
         isAlert: true,
         type: 'alert',
@@ -46,6 +40,9 @@ const TrainingList = ({
       });
       return;
     }
+
+    const {name, time } = choosen
+
     if (schedule.length > 0) {
       const trainingslist = schedule.filter(el => el.date === fullDate);
       const sameTraining = trainingslist?.find(el => el.name === name);
@@ -69,7 +66,6 @@ const TrainingList = ({
         return;
       }
     }
-
     if (e.target.id !== name) {
       return;
     }
@@ -83,8 +79,7 @@ const TrainingList = ({
   };
 
   const removeTraining = e => {
-    const id = e.target.id;
-    const name = e.target.title.split(' ').join('-');
+    const [id, name] = e.target.id.split('/');
     const removeTraining = () => deleteTraining(id);
     const updateSchedule = () => deleteMultipleScheduleItems(name);
 
@@ -131,6 +126,7 @@ const TrainingList = ({
                       onChange={onChange}
                       name="time"
                       id={el.name}
+                      
                     >
                       <option value="--:--">--:--</option>
                       {timeArray.map(el => (
@@ -148,8 +144,7 @@ const TrainingList = ({
                       </span>
                       <span
                         onClick={removeTraining}
-                        id={el._id}
-                        title={el.name}
+                        id={`${el._id}/${el.name}`}
                         className={s.deleteBtn}
                       >
                         D

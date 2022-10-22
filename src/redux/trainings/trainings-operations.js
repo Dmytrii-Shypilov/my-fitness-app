@@ -1,4 +1,4 @@
-import { AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { requestAPI } from 'components/services/requestAPI';
 
 export const fetchTrainings = createAsyncThunk(
