@@ -1,12 +1,11 @@
 import s from './trainings-list.module.scss';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { deleteTraining } from 'redux/trainings/trainings-operations';
 import {
   addScheduleItem,
   deleteMultipleScheduleItems,
 } from 'redux/schedule/schedule-operations';
-import { getUser } from 'redux/user/user-selector';
 import { getTimeArray } from 'components/services/calendarHelpers';
 import { NavLink } from 'react-router-dom';
 

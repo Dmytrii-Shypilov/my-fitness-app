@@ -3,8 +3,6 @@ import s from './auth-form.module.scss';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerUser, logInUser } from 'redux/user/user-operations';
-import { useSelector } from 'react-redux';
-import { getUser } from 'redux/user/user-selector';
 
 const dirtyState = {
   emailDirty: false,
@@ -27,19 +25,19 @@ export default function AuthorizationForm() {
   // form validation state
   const [error, setError] = useState(errorState);
   const [dirty, setDirty] = useState(dirtyState);
-  const [formValidity, setFormValidity] = useState('true');
+  // const [formValidity, setFormValidity] = useState('true');
 
   const { email, password } = form;
   const { emailError, passwordError } = error;
   const { emailDirty, passwordDirty } = dirty;
 
-  useEffect(() => {
-    if (emailError || passwordError) {
-      setFormValidity(false);
-    } else {
-      setFormValidity(true);
-    }
-  }, [emailError, passwordError]);
+  // useEffect(() => {
+  //   if (emailError || passwordError) {
+  //     setFormValidity(false);
+  //   } else {
+  //     setFormValidity(true);
+  //   }
+  // }, [emailError, passwordError]);
 
   const onInput = e => {
     setForm(prevState => {
