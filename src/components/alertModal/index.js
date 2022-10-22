@@ -1,1 +1,2 @@
-export {default} from './AlertModal'
+
+export {default} from "./AlertModal"

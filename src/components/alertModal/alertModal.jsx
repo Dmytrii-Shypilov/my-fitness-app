@@ -52,4 +52,5 @@ const AlertModal = ({ alert, setAlert, callback }) => {
   );
 };
 
-export default AlertModal;
+
+export default AlertModal
